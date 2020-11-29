@@ -29,26 +29,11 @@ configure do
   "Barbers"
    (
       "id"  INTEGER PRIMARY KEY AUTOINCREMENT,
-      "barbername"  TEXT,
-      "phone" TEXT,
-      UNIQUE("barbername")
+      "barbername"  TEXT UNIQUE,
+      "phone" TEXT
     )'
 
-  db.execute 'insert into
-     Barbers
-     (barbername,
-     phone)
-     values (?, ?)', ['WalterWhite', 1111]
-  db.execute 'insert into
-     Barbers
-     (barbername,
-     phone)
-     values (?, ?)', ['JessiePinkman', 1111]
-  db.execute 'insert into
-     Barbers
-     (barbername,
-     phone)
-     values (?, ?)', ['GusFring', 1111]
+  
 end
 
 get '/' do
@@ -60,7 +45,6 @@ get '/about' do
 end
 
 get '/visits' do
-  @db = get_db
   erb :visits
 end
 
@@ -71,6 +55,17 @@ post '/visits' do
   @barber = params[:barber]
   @colorpicker = params[:colorpicker]
   @message = ''
+
+
+  # @db = get_db
+  # @b=[]
+  # @db.execute 'select barbername from Barbers where id' do |barber|
+  #     @b << barber['barbername']
+  # end
+  # @gus = @b[0]
+  # @jessie = @b[1]
+  # @walter = @b[2]
+
 
   @f = File.open('./public/users.txt', 'a+')
 
@@ -162,7 +157,9 @@ post '/contacts' do
 end
 
 get '/showusers' do
-  @db = get_db
-  @str = ''
+  db = get_db
+
+  @results = db.execute 'select*from Users order by id desc --'
+
   erb :showusers
 end

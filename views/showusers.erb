@@ -1,5 +1,4 @@
-
-<table border="1">
+<table class='table' >
   	<tr>
   		<td>Username</td>
   		<td>Phone</td>
@@ -8,14 +7,15 @@
   		<td>Color</td>
   	</tr>
 
-  	<% @db.execute 'select*from Users order by id desc --' do |line|%>
-    <tr>
-	    <%= p "	<td> #{ line['username'].capitalize } </td>
-	    		<td> #{ line['phone'] } </td>
-	    		<td> #{ line['datestamp'] } </td>
-	    		<td> #{ line['barber'] } </td>
-	    		<td> #{ line['color'] } </td>"
-		%>
-  	</tr>
-  	<% end %>
+    <% @results.each do |row|%>
+      <tr>
+          <td><%= row['username'] %></td>
+          <td><%= row['phone'] %></td>
+          <td><%= row['datestamp'] %></td>
+          <td><%= row['barber'] %></td>
+          <td><%= row['color'] %></td>
+      </tr>
+
+    <% end %>
+    
 </table>

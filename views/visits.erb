@@ -30,19 +30,10 @@
 
   <div class="form-group">
 		<select name="barber">
-		 <option <%= @barber == 'Walter White' ? 'selected' : '' %>>
-      <% @db.execute 'select barbername from Barbers where id=1' do |barber| %>
-          <%= barber['barbername'] %>
-      <% end %></option>
-		 <option <%= @barber == 'Jessie Pinkman' ? 'selected' : '' %>>
-      <% @db.execute 'select barbername from Barbers where id=2' do |barber| %>
-          <%= barber['barbername'] %>
-      <% end %></option>
+		 <option <%= @barber == 'Gus fring' ? 'selected' : '' %>>Gus fring</option>
+		 <option <%= @barber == 'Jessie Pinckman' ? 'selected' : '' %>>Jessie Pinckman</option>
     </option>
-		 <option <%= @barber == 'Gus Fring' ? 'selected' : '' %>>
-      <% @db.execute 'select barbername from Barbers where id=3' do |barber| %>
-          <%= barber['barbername'] %>
-      <% end %></option>
+		 <option <%= @barber == 'Walter White' ? 'selected' : '' %>>Walter White</option>
 
      </option>
 		</select>
