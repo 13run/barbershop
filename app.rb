@@ -6,6 +6,12 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
+def get_db
+  db = SQLite3::Database.new 'barbershop_db'
+  db.results_as_hash = true
+  db
+end
+
 configure do
   db = get_db
   db.execute 'CREATE TABLE IF NOT EXISTS
@@ -24,8 +30,25 @@ configure do
    (
       "id"  INTEGER PRIMARY KEY AUTOINCREMENT,
       "barbername"  TEXT,
-      "phone" TEXT
+      "phone" TEXT,
+      UNIQUE("barbername")
     )'
+
+  db.execute 'insert into
+     Barbers
+     (barbername,
+     phone)
+     values (?, ?)', ['WalterWhite', 1111]
+  db.execute 'insert into
+     Barbers
+     (barbername,
+     phone)
+     values (?, ?)', ['JessiePinkman', 1111]
+  db.execute 'insert into
+     Barbers
+     (barbername,
+     phone)
+     values (?, ?)', ['GusFring', 1111]
 end
 
 get '/' do
@@ -37,6 +60,7 @@ get '/about' do
 end
 
 get '/visits' do
+  @db = get_db
   erb :visits
 end
 
@@ -47,6 +71,7 @@ post '/visits' do
   @barber = params[:barber]
   @colorpicker = params[:colorpicker]
   @message = ''
+
   @f = File.open('./public/users.txt', 'a+')
 
   errors_hh = { user_name: 'Введите имя',
@@ -140,10 +165,4 @@ get '/showusers' do
   @db = get_db
   @str = ''
   erb :showusers
-end
-
-def get_db
-  db = SQLite3::Database.new 'barbershop_db'
-  db.results_as_hash = true
-  db
 end
