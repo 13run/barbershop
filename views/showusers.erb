@@ -1,12 +1,13 @@
 <table class='table' >
-  	<tr>
-  		<td>Username</td>
-  		<td>Phone</td>
-  		<td>Datetime</td>
-  		<td>Barber</td>
-  		<td>Color</td>
-  	</tr>
+  	<thead>
+  		<th>Username</th>
+  		<th>Phone</th>
+  		<th>Datetime</th>
+  		<th>Barber</th>
+  		<th>Color</th>
+  	</thead>
 
+    <body>
     <% @results.each do |row|%>
       <tr>
           <td><%= row['username'] %></td>
@@ -17,5 +18,6 @@
       </tr>
 
     <% end %>
+    </body>
     
 </table>
