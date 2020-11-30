@@ -12,6 +12,18 @@ def get_db
   db
 end
 
+def is_barber_exists? db, name
+  db.execute('select * from Barbers where barbername = ?', [name]).length > 0
+end
+
+def seed_db db, barbers
+  
+  barbers.each do |barber|
+    db.execute('insert into Barbers (barbername) values (?)', [barber]) if !is_barber_exists? db, barber
+  end
+
+end
+
 configure do
   db = get_db
   db.execute 'CREATE TABLE IF NOT EXISTS
@@ -29,15 +41,15 @@ configure do
   "Barbers"
    (
       "id"  INTEGER PRIMARY KEY AUTOINCREMENT,
-      "barbername"  TEXT UNIQUE,
-      "phone" TEXT
+      "barbername"  TEXT UNIQUE
     )'
 
+   seed_db db, ['Walter White', 'Jessie Pinckman', 'Gus fring']
   
 end
 
 get '/' do
-  erb 'Hello! <a href="https://github.com/bootstrap-ruby/sinatra-bootstrap">Original</a> pattern has been modified for <a href="http://rubyschool.us/">Ruby School</a>'
+  erb 'Hello! '
 end
 
 get '/about' do
