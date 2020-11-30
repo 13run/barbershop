@@ -30,9 +30,14 @@
 
   <div class="form-group">
 		<select name="barber">
-		 <option <%= @barber == 'Gus fring' ? 'selected' : '' %>>Gus fring</option>
-		 <option <%= @barber == 'Jessie Pinckman' ? 'selected' : '' %>>Jessie Pinckman</option>
-		 <option <%= @barber == 'Walter White' ? 'selected' : '' %>>Walter White</option>
+
+		  <% @barberlist.each do |row|%>
+      <option <%= @barber == row['barbername'] ? 'selected' : '' %>>
+          <%= row['barbername'] %>          
+      </option>
+
+      <% end %>
+
 		</select>
   </div>
 

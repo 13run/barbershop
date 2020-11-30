@@ -24,6 +24,11 @@ def seed_db db, barbers
 
 end
 
+before do 
+  db = get_db
+  @barberlist = db.execute 'select * from Barbers order by id desc --'
+end
+
 configure do
   db = get_db
   db.execute 'CREATE TABLE IF NOT EXISTS
@@ -67,17 +72,6 @@ post '/visits' do
   @barber = params[:barber]
   @colorpicker = params[:colorpicker]
   @message = ''
-
-
-  # @db = get_db
-  # @b=[]
-  # @db.execute 'select barbername from Barbers where id' do |barber|
-  #     @b << barber['barbername']
-  # end
-  # @gus = @b[0]
-  # @jessie = @b[1]
-  # @walter = @b[2]
-
 
   @f = File.open('./public/users.txt', 'a+')
 
