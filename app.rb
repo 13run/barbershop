@@ -146,7 +146,7 @@ post '/contacts' do
                   address: 'smtp.gmail.com',
                   port: '587',
                   user_name: 'runemal13',
-                  password: 'dzenMidzeN13',
+                  password: '',
                   authentication: :plain,
                   domain: 'gmail.com'
                 }
